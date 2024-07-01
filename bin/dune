@@ -1,7 +1,4 @@
 (executable
  (name image_exercise)
  (promote)
- (libraries
-  image_exercise_lib
- )
-)
+ (libraries image_exercise_lib))
