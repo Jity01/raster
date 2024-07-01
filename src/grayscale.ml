@@ -2,8 +2,7 @@ open Core
 
 (* You need to change the implementation of this function so that it does something
    to the image instead of just leaving it untouched. *)
-let transform image =
-  image
+let transform (image : Image.t) : Image.t = Image.map image ~f:(fun (r, g, b) -> let avg = (r + g + b) / 3 in (avg, avg, avg))
 ;;
 
 let command =
