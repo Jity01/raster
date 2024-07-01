@@ -1,15 +1,21 @@
 open Core
 
-(* You need to change the implementation of this function so that it
-   replaces the "blue" pixels of the foreground image with pixels from
-   the corresponding position in the background image instead of
-   just ignoring the background image and returning the foreground image.
-*)
-let transform ~foreground ~background:_ = foreground
+(* You need to change the implementation of this function so that it replaces
+   the "blue" pixels of the foreground image with pixels from the
+   corresponding position in the background image instead of just ignoring
+   the background image and returning the foreground image. *)
+let transform ~(foreground : Image.t) ~(background : Image.t) : _ =
+  let is_blue (r, g, b) = b > r + g in
+  Image.mapi foreground ~f:(fun ~x ~y (r, g, b) ->
+    match is_blue (r, g, b) with
+    | true -> Image.get background ~x ~y
+    | false -> r, g, b)
+;;
 
 let command =
   Command.basic
-    ~summary:"Replace the 'blue' pixels of an image with those from another image"
+    ~summary:
+      "Replace the 'blue' pixels of an image with those from another image"
     [%map_open.Command
       let foreground_file =
         flag
@@ -28,5 +34,7 @@ let command =
         let image' = transform ~foreground ~background in
         Image.save_ppm
           image'
-          ~filename:(String.chop_suffix_exn foreground_file ~suffix:".ppm" ^ "_vfx.ppm")]
+          ~filename:
+            (String.chop_suffix_exn foreground_file ~suffix:".ppm"
+             ^ "_vfx.ppm")]
 ;;
