@@ -12,6 +12,15 @@ let transform ~(foreground : Image.t) ~(background : Image.t) : _ =
     | false -> r, g, b)
 ;;
 
+(* let%expect_test "transform" = let correct_output = Image.load_ppm
+   ~filename:"../images/reference-beach_portrait_gray.ppm" in let
+   output_to_test = Image.load_ppm
+   ~filename:"../images/beach_portrait_gray.ppm" |> transform in let _r =
+   Image.mapi output_to_test ~f:(fun ~x ~y (r, g, b) -> let (cr, cg, cb) =
+   (Image.get correct_output ~x ~y) in match Pixel.equal (cr, cg, cb) (r, g,
+   b) with | true -> (r, g, b) | false -> printf "output:%i %i %i\ncorrect:
+   %i %i %i\n\n" r g b cr cg cb; (r, g, b)) in [%expect {||}] ;; *)
+
 let command =
   Command.basic
     ~summary:
