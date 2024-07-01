@@ -17,5 +17,6 @@ let command =
         let image = Image.load_ppm ~filename |> transform in
         Image.save_ppm
           image
-          ~filename:(String.chop_suffix_exn filename ~suffix:".ppm" ^ "_dither.ppm")]
+          ~filename:
+            (String.chop_suffix_exn filename ~suffix:".ppm" ^ "_dither.ppm")]
 ;;
