@@ -1,6 +1,6 @@
 open! Core
 
-type t = int * int * int [@@deriving sexp]
+type t = int * int * int [@@deriving sexp, equal]
 
 let red (r, _, _) = r
 let green (_, g, _) = g
